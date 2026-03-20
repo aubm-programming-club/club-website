@@ -1,7 +1,4 @@
 # AUBM Programming Club — 2026-2027 Club Website
-**Theme:** Intelligence-Driven Smart Eco City  
-**Status:** Task 1 Complete  
-
 ---
 
 ## 📋 Project Overview
@@ -9,15 +6,15 @@ This is AUB Mediterraneo's Programming Club website which is designed by the clu
 
 ---
 
-## 🛠️ Core Features
+## 🧪 Core Features
 * **VS Code IDE UI:** The website layout has a gen-z-fied VS Code UI with adjustments for a more native website navigation experience. 
 
 ---
 
 ## 🗄️ File Structure
 * `aboutUs.tsx`: The Landing Page set after our custom loading screen.
-* `events.tsx`: The logic engine that simulates time-series data and environmental variables.
-* `ourMembers.tsx`: An integration test script to verify tool outputs and mathematical accuracy without an LLM.
+* `projects.tsx`: The projects we did & reasoining behind site.
+* `ourMembers.tsx`: Showcasing the team.
 
 ---
 
