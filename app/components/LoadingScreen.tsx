@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 
+const DISPLAY_DURATION_MS = 2000;
+
 export function LoadingScreen({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<"visible" | "fading">("visible");
 
   useEffect(() => {
-    // Start fade-out after 2 s
-    const fadeTimer = setTimeout(() => setPhase("fading"), 2000);
-    // Notify parent once CSS transition ends (0.8 s fade)
-    const doneTimer = setTimeout(onDone, 2800);
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(doneTimer);
-    };
-  }, [onDone]);
+    const fadeTimer = setTimeout(() => setPhase("fading"), DISPLAY_DURATION_MS);
+    return () => clearTimeout(fadeTimer);
+  }, []);
 
   return (
     <div
+      onTransitionEnd={onDone}
       className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black transition-opacity duration-700 ${
         phase === "fading" ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
