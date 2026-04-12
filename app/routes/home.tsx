@@ -17,6 +17,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const [shouldShowLoadingScreen, setShouldShowLoadingScreen] = useState(false);
+  const [currentYear, setCurrentYear] = useState("");
 
   useEffect(() => {
     // Only show the loading screen on the first visit of the session
@@ -26,6 +27,8 @@ export default function Home() {
         setShouldShowLoadingScreen(true);
       }
     }
+
+    setCurrentYear(String(new Date().getFullYear()));
   }, []);
 
   const handleLoadDone = useCallback(() => setShouldShowLoadingScreen(false), []);
@@ -125,7 +128,7 @@ export default function Home() {
         </section>
 
         <footer className="mt-auto bg-black border-t border-red-900 text-gray-500 text-center text-sm py-6">
-          © {new Date().getFullYear()} UniCode Club · All rights reserved
+          © <span suppressHydrationWarning>{currentYear}</span> UniCode Club · All rights reserved
         </footer>
       </div>
     </>
