@@ -1,11 +1,11 @@
-# AUBM Programming Club — 2026-2027 Club Website
-**Theme:** Intelligence-Driven Smart Eco City  
-**Status:** Task 1 Complete  
+# UniCode Club — Club Website
+**Theme:** VS Code-Inspired Club Website  
+**Status:** In Development  
 
 ---
 
 ## 📋 Project Overview
-This is AUB Mediterraneo's Programming Club website which is designed by the club's members and cabinet. It's a showcasing of our club's members, our initiatives, and more..
+This is the UniCode Club website, designed to showcase the club's members, initiatives, and community through a VS Code-inspired interface.
 
 ---
 
