@@ -15,9 +15,9 @@ This is the UniCode Club website, designed to showcase the club's members, initi
 ---
 
 ## 🗄️ File Structure
-* `aboutUs.tsx`: The Landing Page set after our custom loading screen.
-* `events.tsx`: The logic engine that simulates time-series data and environmental variables.
-* `ourMembers.tsx`: An integration test script to verify tool outputs and mathematical accuracy without an LLM.
+* `home.tsx`: The main landing page for the club website.
+* `members.tsx`: The page that showcases the club's members.
+* `projects.tsx`: The page that highlights the club's projects and initiatives.
 
 ---
 
