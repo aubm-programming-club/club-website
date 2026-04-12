@@ -114,7 +114,8 @@ export default function Projects() {
       </section>
 
       <footer className="bg-black border-t border-red-900 text-gray-500 text-center text-sm py-6">
-        © {new Date().getFullYear()} UniCode Club · All rights reserved
+        © <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
+        UniCode Club · All rights reserved
       </footer>
     </div>
   );
