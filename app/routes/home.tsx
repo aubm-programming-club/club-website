@@ -17,6 +17,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   const [shouldShowLoadingScreen, setShouldShowLoadingScreen] = useState(false);
+  const [hasCheckedSession, setHasCheckedSession] = useState(false);
 
   useEffect(() => {
     // Only show the loading screen on the first visit of the session
@@ -26,9 +27,15 @@ export default function Home() {
         setShouldShowLoadingScreen(true);
       }
     }
+
+    setHasCheckedSession(true);
   }, []);
 
   const handleLoadDone = useCallback(() => setShouldShowLoadingScreen(false), []);
+
+  if (!hasCheckedSession) {
+    return null;
+  }
 
   return (
     <>
