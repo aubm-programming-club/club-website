@@ -8,6 +8,12 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export function loader() {
+  return {
+    currentYear: new Date().getFullYear(),
+  };
+}
+
 const members = [
   {
     name: "Zeina Obeid",
@@ -99,7 +105,9 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-export default function Members() {
+export default function Members({ loaderData }: Route.ComponentProps) {
+  const { currentYear } = loaderData;
+
   return (
     <div className="min-h-screen flex flex-col bg-black">
       {/* Scanline overlay — covers the whole page as a fixed decorative layer */}
@@ -150,7 +158,7 @@ export default function Members() {
       </section>
 
       <footer className="bg-black border-t border-red-900 text-gray-500 text-center text-sm py-6 font-mono">
-        © {new Date().getFullYear()} UniCode Club · All footage used with permission
+        © {currentYear} UniCode Club · All footage used with permission
       </footer>
     </div>
   );
