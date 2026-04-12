@@ -20,6 +20,7 @@ export function Navbar() {
             <li key={to}>
               <Link
                 to={to}
+                aria-current={location.pathname === to ? "page" : undefined}
                 className={`text-sm font-medium transition-colors hover:text-red-400 ${
                   location.pathname === to
                     ? "border-b-2 border-red-500 pb-0.5 text-red-400"
