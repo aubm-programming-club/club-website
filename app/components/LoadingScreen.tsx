@@ -16,28 +16,30 @@ export function LoadingScreen({ onDone }: { onDone: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black transition-opacity duration-700 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#000000] transition-opacity duration-700 ${
         phase === "fading" ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
-      {/* Animated code-bracket logo */}
+      {/* Logo mark */}
       <div className="relative flex items-center justify-center mb-8">
-        <span className="text-red-600 text-8xl font-black select-none leading-none animate-pulse">
+        <span className="text-white text-7xl font-light select-none leading-none">
           {"</>"}
         </span>
       </div>
 
       {/* Club name */}
-      <h1 className="text-white text-4xl font-extrabold tracking-widest uppercase mb-2">
+      <h1 className="text-white text-3xl font-medium tracking-tight mb-2">
         UniCode Club
       </h1>
-      <p className="text-red-500 text-sm tracking-widest uppercase">
+
+      {/* Subtitle — uppercase label style */}
+      <p className="text-[#8F8F8F] text-[12px] tracking-[1px] uppercase">
         University Programming Club
       </p>
 
-      {/* Loading bar */}
-      <div className="mt-10 w-48 h-1 bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-red-600 rounded-full loading-bar" />
+      {/* Loading bar — Ferrari Red on dark track */}
+      <div className="mt-10 w-48 h-[2px] bg-[#303030] overflow-hidden">
+        <div className="h-full bg-[#DA291C] loading-bar" />
       </div>
     </div>
   );

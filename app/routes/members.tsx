@@ -4,7 +4,7 @@ import { Navbar } from "../components/Navbar";
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Members — UniCode Club" },
-    { name: "description", content: "Meet the team behind UniCode Club. A documentary." },
+    { name: "description", content: "Meet the team behind UniCode Club." },
   ];
 }
 
@@ -101,47 +101,26 @@ function getInitials(name: string) {
 
 export default function Members() {
   return (
-    <div className="min-h-screen flex flex-col bg-black">
-      {/* Scanline overlay — covers the whole page as a fixed decorative layer */}
-      <div
-        className="pointer-events-none fixed inset-0 z-50 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.15) 2px, rgba(255,255,255,0.15) 4px)",
-        }}
-      />
-
+    <div className="min-h-screen flex flex-col bg-[#000000]">
       <Navbar />
 
-      {/* Documentary title card */}
-      <section className="bg-black border-b border-red-900 text-white py-16 px-4 text-center relative overflow-hidden">
-        {/* Vignette corners */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_60%,_rgba(0,0,0,0.7)_100%)]" />
-
-        <div className="relative max-w-2xl mx-auto">
-          {/* Network bug / channel identifier */}
-          <p className="text-red-500 text-xs font-mono tracking-[0.3em] uppercase mb-3 opacity-80">
-            UniCode Original Documentary Series
+      {/* Title card — Absolute Black */}
+      <section className="bg-[#000000] text-white py-20 px-4 text-center">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[#969696] text-[12px] uppercase mb-4 tracking-[1px]">
+            UniCode Club Members
           </p>
-
-          <h1 className="text-5xl font-extrabold tracking-tight mb-3">
+          <h1 className="text-[26px] font-medium leading-[1.2] text-white mb-4">
             The Team
           </h1>
-
-          {/* Dunder Mifflin-esque subtitle card */}
-          <div className="inline-block border-l-4 border-red-500 pl-4 text-left mt-2">
-            <p className="text-gray-300 text-base font-medium">
-              A UniCode Club Documentary
-            </p>
-            <p className="text-gray-500 text-sm font-mono">
-              Filmed on location at AUBM · Season 1
-            </p>
-          </div>
+          <p className="text-[#8F8F8F] text-base leading-relaxed">
+            A UniCode Club Documentary · Filmed on location at AUBM · Season 1
+          </p>
         </div>
       </section>
 
-      {/* Members grid */}
-      <section className="py-16 px-4 flex-1 bg-gray-950">
+      {/* Members grid — Pure White */}
+      <section className="py-16 px-4 flex-1 bg-[#FFFFFF]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {members.map((member) => (
             <MemberCard key={member.name} member={member} />
@@ -149,7 +128,8 @@ export default function Members() {
         </div>
       </section>
 
-      <footer className="bg-black border-t border-red-900 text-gray-500 text-center text-sm py-6 font-mono">
+      {/* Footer — Dark Surface */}
+      <footer className="bg-[#303030] text-[#8F8F8F] text-center text-sm py-6">
         © {new Date().getFullYear()} UniCode Club · All footage used with permission
       </footer>
     </div>
@@ -160,101 +140,40 @@ type Member = (typeof members)[number];
 
 function MemberCard({ member }: { member: Member }) {
   return (
-    <div
-      className="group relative flex flex-col bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-red-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_24px_rgba(220,38,38,0.25)]"
-    >
-      {/* Camera bezel top bar */}
-      <div className="flex items-center justify-between bg-black px-3 py-2 border-b border-gray-800">
-        {/* Viewfinder corner brackets (decorative) */}
-        <div className="flex items-center gap-2">
-          <ViewfinderCorners />
-        </div>
-
-        {/* REC indicator */}
-        <div className="flex items-center gap-1.5">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600" />
-          </span>
-          <span className="text-red-500 text-[10px] font-mono font-bold tracking-widest">
-            REC
-          </span>
-        </div>
-
-        {/* Timecode */}
-        <span className="text-gray-600 text-[10px] font-mono tracking-wider">
-          00:00:00:00
-        </span>
-      </div>
-
-      {/* Camera frame / avatar area */}
-      <div className="relative bg-black flex items-center justify-center py-8 px-6">
-        {/* Viewfinder corner overlays */}
-        <div className="pointer-events-none absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-red-700 opacity-60" />
-        <div className="pointer-events-none absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-red-700 opacity-60" />
-        <div className="pointer-events-none absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-red-700 opacity-60" />
-        <div className="pointer-events-none absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-red-700 opacity-60" />
-
-        {/* Avatar circle */}
-        <div className="w-24 h-24 rounded-full bg-gray-900 border-2 border-red-800 flex items-center justify-center text-red-400 text-2xl font-bold select-none shadow-inner">
+    <div className="flex flex-col bg-white rounded-[2px] overflow-hidden">
+      {/* Avatar area */}
+      <div className="flex items-center justify-center py-10 px-6 bg-[#FFFFFF]">
+        <div className="w-20 h-20 rounded-full bg-[#F5F5F5] border border-[#CCCCCC] flex items-center justify-center text-[#181818] text-xl font-semibold select-none">
           {getInitials(member.name)}
         </div>
-
-        {/* Office character label — top right corner */}
-        <div className="absolute top-3 left-1/2 -translate-x-1/2">
-          <span className="text-[10px] font-mono text-gray-600 tracking-wide whitespace-nowrap">
-            {member.officeCharacter}
-          </span>
-        </div>
       </div>
 
-      {/* Lower third — name & role title bar (The Office style) */}
-      <div className="bg-black px-4 py-2.5 border-t-2 border-red-600">
-        <p className="text-white font-bold text-base leading-tight tracking-tight">
+      {/* Name & role */}
+      <div className="px-5 pb-2">
+        <p className="text-[#181818] font-bold text-base leading-tight tracking-tight">
           {member.name}
         </p>
-        <p className="text-red-400 text-xs font-semibold mt-0.5 uppercase tracking-widest">
+        <p className="text-[#666666] text-[12px] uppercase mt-0.5 tracking-[1px] font-semibold">
           {member.role}
+        </p>
+        <p className="text-[#8F8F8F] text-[11px] uppercase mt-1 tracking-[0.5px]">
+          {member.officeCharacter}
         </p>
       </div>
 
-      {/* Interview content area */}
-      <div className="flex flex-col gap-3 px-4 py-4 flex-1">
-        {/* Quote in caption/subtitle style */}
-        <blockquote className="relative border-l-2 border-red-700 pl-3">
-          <span className="text-gray-600 text-lg leading-none select-none absolute -top-1 -left-1">"</span>
-          <p className="text-gray-300 text-sm italic leading-relaxed pl-1">
+      {/* Quote */}
+      <div className="px-5 py-3 flex-1 flex flex-col gap-3">
+        <blockquote className="border-l-2 border-[#CCCCCC] pl-3">
+          <p className="text-[#666666] text-sm italic leading-relaxed">
             {member.quote}
           </p>
         </blockquote>
 
-        {/* Talking-head description */}
-        <p className="text-gray-500 text-xs leading-relaxed">
+        {/* Description */}
+        <p className="text-[#8F8F8F] text-[13px] leading-relaxed">
           {member.description}
         </p>
       </div>
-
-      {/* Bottom bar — tape counter aesthetic */}
-      <div className="bg-black px-4 py-2 border-t border-gray-800 flex items-center justify-between">
-        <span className="text-gray-700 text-[10px] font-mono">UNICODE / S01</span>
-        <div className="flex gap-1 items-center">
-          <div className="w-1.5 h-1.5 rounded-full bg-gray-700" />
-          <div className="w-1.5 h-1.5 rounded-full bg-gray-700" />
-          <div className="w-1.5 h-1.5 rounded-full bg-red-900 group-hover:bg-red-600 transition-colors" />
-        </div>
-        <span className="text-gray-700 text-[10px] font-mono">AUBM</span>
-      </div>
-    </div>
-  );
-}
-
-function ViewfinderCorners() {
-  return (
-    <div className="relative w-5 h-4">
-      <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-gray-600" />
-      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-gray-600" />
-      <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-600" />
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-600" />
     </div>
   );
 }

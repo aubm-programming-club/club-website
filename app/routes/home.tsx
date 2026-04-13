@@ -34,33 +34,44 @@ export default function Home() {
     <>
       {shouldShowLoadingScreen && <LoadingScreen onDone={handleLoadDone} />}
 
-      <div className="min-h-screen flex flex-col bg-black">
+      <div className="min-h-screen flex flex-col bg-[#000000]">
         <Navbar />
 
-        {/* Hero */}
-        <section className="bg-black border-b border-red-900 text-white py-24 px-4 text-center">
+        {/* Hero — Absolute Black */}
+        <section className="bg-[#000000] text-white py-32 px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <p className="text-red-500 text-sm font-semibold tracking-widest uppercase mb-4">
+            {/* Uppercase label */}
+            <p className="text-[#969696] text-[12px] uppercase mb-6 tracking-[1px]">
               University Programming Club
             </p>
-            <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
+
+            <h1
+              className="text-[40px] leading-[1.2] font-medium mb-6"
+              style={{ fontSize: "clamp(28px, 5vw, 48px)" }}
+            >
               Welcome to{" "}
-              <span className="text-red-500">UniCode Club</span>
+              <span className="font-semibold">UniCode Club</span>
             </h1>
-            <p className="text-lg text-gray-400 mb-8">
+
+            <p className="text-[#8F8F8F] text-base leading-relaxed mb-10 max-w-xl mx-auto">
               Where curious minds build, learn, and collaborate on real-world
               projects.
             </p>
+
             <div className="flex justify-center gap-4 flex-wrap">
+              {/* Primary CTA — Ferrari Red */}
               <Link
                 to="/members"
-                className="bg-red-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-red-500 transition-colors"
+                className="bg-[#DA291C] text-white text-base px-[10px] py-[12px] rounded-[2px] hover:bg-[#B01E0A] transition-colors"
+                style={{ letterSpacing: "1.28px", minWidth: "140px" }}
               >
                 Meet the Team
               </Link>
+              {/* Ghost button */}
               <Link
                 to="/projects"
-                className="border border-red-600 text-red-400 font-semibold px-6 py-3 rounded-lg hover:bg-red-950 transition-colors"
+                className="bg-transparent text-white border border-white text-base px-[10px] py-[12px] rounded-[2px] hover:bg-[#1EAEDB] hover:border-[#1EAEDB] transition-colors"
+                style={{ letterSpacing: "1.28px", minWidth: "140px" }}
               >
                 View Projects
               </Link>
@@ -68,13 +79,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About */}
-        <section className="py-16 px-4 bg-gray-950">
+        {/* About — Pure White */}
+        <section className="py-20 px-4 bg-[#FFFFFF]">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
+            <h2 className="text-[26px] font-medium leading-[1.2] text-[#181818] mb-6">
               About the Club
             </h2>
-            <p className="text-gray-400 text-lg leading-relaxed">
+            <p className="text-[#666666] text-base leading-relaxed">
               UniCode Club is a student-run organization dedicated to fostering
               a passion for programming and software development. We host weekly
               coding sessions, hackathons, workshops, and collaborative projects
@@ -83,19 +94,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Feature cards */}
-        <section className="bg-black py-16 px-4">
+        {/* Features — Absolute Black */}
+        <section className="bg-[#000000] py-20 px-4">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map(({ icon, title, description }) => (
               <div
                 key={title}
-                className="rounded-2xl border border-red-900 bg-gray-950 p-8 text-center shadow-sm hover:border-red-600 transition-colors"
+                className="rounded-[2px] p-8 text-center"
               >
-                <div className="text-5xl mb-4">{icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-2">
+                <div className="text-4xl mb-4">{icon}</div>
+                <h3 className="text-[24px] font-normal text-white mb-3 leading-[1.2]">
                   {title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-[#8F8F8F] text-sm leading-relaxed">
                   {description}
                 </p>
               </div>
@@ -103,20 +114,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Quick links */}
-        <section className="py-16 px-4 bg-gray-950">
+        {/* Explore / Quick links — Pure White */}
+        <section className="py-20 px-4 bg-[#FFFFFF]">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-white mb-8">Explore</h2>
+            <h2 className="text-[26px] font-medium leading-[1.2] text-[#181818] mb-10">
+              Explore
+            </h2>
             <div className="flex justify-center gap-6 flex-wrap">
               <Link
                 to="/members"
-                className="bg-red-600 text-white font-medium px-8 py-3 rounded-lg hover:bg-red-500 transition-colors"
+                className="bg-white text-[#181818] border border-[#181818] text-base px-[10px] py-[12px] rounded-[2px] hover:bg-[#1EAEDB] hover:text-white hover:border-[#1EAEDB] transition-colors"
+                style={{ letterSpacing: "1.28px", minWidth: "120px" }}
               >
                 Members
               </Link>
               <Link
                 to="/projects"
-                className="bg-red-600 text-white font-medium px-8 py-3 rounded-lg hover:bg-red-500 transition-colors"
+                className="bg-white text-[#181818] border border-[#181818] text-base px-[10px] py-[12px] rounded-[2px] hover:bg-[#1EAEDB] hover:text-white hover:border-[#1EAEDB] transition-colors"
+                style={{ letterSpacing: "1.28px", minWidth: "120px" }}
               >
                 Projects
               </Link>
@@ -124,7 +139,8 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="mt-auto bg-black border-t border-red-900 text-gray-500 text-center text-sm py-6">
+        {/* Footer — Dark Surface */}
+        <footer className="mt-auto bg-[#303030] text-[#8F8F8F] text-center text-sm py-6">
           © {new Date().getFullYear()} UniCode Club · All rights reserved
         </footer>
       </div>

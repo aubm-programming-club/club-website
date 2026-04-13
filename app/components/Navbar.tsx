@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router";
 
-const links = [
+const navLinks = [
   { to: "/", label: "Home" },
   { to: "/members", label: "Members" },
   { to: "/projects", label: "Projects" },
@@ -8,22 +9,29 @@ const links = [
 
 export function Navbar() {
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-black border-b border-red-800 text-white shadow-md">
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link to="/" className="text-xl font-bold tracking-tight text-red-500 hover:text-red-400 transition-colors">
+    <nav className="bg-[#000000] text-white">
+      <div className="max-w-[1920px] mx-auto px-6 flex items-center justify-between h-16">
+        {/* Brand */}
+        <Link
+          to="/"
+          className="text-base font-medium tracking-tight text-white hover:text-[#8F8F8F] transition-colors"
+        >
           UniCode Club
         </Link>
-        <ul className="flex gap-6">
-          {links.map(({ to, label }) => (
+
+        {/* Desktop links */}
+        <ul className="hidden md:flex gap-8">
+          {navLinks.map(({ to, label }) => (
             <li key={to}>
               <Link
                 to={to}
-                className={`text-sm font-medium transition-colors hover:text-red-400 ${
+                className={`text-[13px] font-semibold tracking-[0.13px] transition-colors pb-1 ${
                   location.pathname === to
-                    ? "border-b-2 border-red-500 pb-0.5 text-red-400"
-                    : "text-gray-300"
+                    ? "text-white border-b-2 border-[#DA291C]"
+                    : "text-[#8F8F8F] hover:text-white"
                 }`}
               >
                 {label}
@@ -31,7 +39,44 @@ export function Navbar() {
             </li>
           ))}
         </ul>
+
+        {/* Hamburger — mobile */}
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-1 text-white"
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span
+            className={`block w-5 h-0.5 bg-white transition-transform duration-200 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+          />
+          <span
+            className={`block w-5 h-0.5 bg-white transition-opacity duration-200 ${menuOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block w-5 h-0.5 bg-white transition-transform duration-200 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+          />
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#000000] border-t border-[#303030] px-6 py-4 flex flex-col gap-4">
+          {navLinks.map(({ to, label }) => (
+            <Link
+              key={to}
+              to={to}
+              onClick={() => setMenuOpen(false)}
+              className={`text-[13px] font-semibold tracking-[0.13px] ${
+                location.pathname === to
+                  ? "text-white"
+                  : "text-[#8F8F8F] hover:text-white"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }

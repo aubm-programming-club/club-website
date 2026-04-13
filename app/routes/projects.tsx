@@ -31,28 +31,35 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-[#000000]">
       <Navbar />
 
-      <section className="bg-black border-b border-red-900 text-white py-14 px-4 text-center">
-        <h1 className="text-4xl font-extrabold tracking-tight mb-2">
-          Our Projects
-        </h1>
-        <p className="text-gray-400 text-lg">
-          Real-world software built by club members.
-        </p>
+      {/* Title card — Absolute Black */}
+      <section className="bg-[#000000] text-white py-20 px-4 text-center">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[#969696] text-[12px] uppercase mb-4 tracking-[1px]">
+            UniCode Club Projects
+          </p>
+          <h1 className="text-[26px] font-medium leading-[1.2] text-white mb-4">
+            Our Projects
+          </h1>
+          <p className="text-[#8F8F8F] text-base leading-relaxed">
+            Real-world software built by club members.
+          </p>
+        </div>
       </section>
 
-      <section className="py-16 px-4 flex-1 bg-gray-950">
-        <div className="max-w-4xl mx-auto flex flex-col gap-12">
+      {/* Projects list — Pure White */}
+      <section className="py-16 px-4 flex-1 bg-[#FFFFFF]">
+        <div className="max-w-4xl mx-auto flex flex-col gap-10">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="bg-black rounded-2xl border border-red-900 shadow-sm overflow-hidden flex flex-col md:flex-row hover:border-red-600 transition-colors"
+              className="bg-white rounded-[2px] overflow-hidden flex flex-col md:flex-row"
             >
-              {/* Photo placeholder */}
-              <div className="md:w-64 w-full h-48 md:h-auto bg-gray-900 flex items-center justify-center shrink-0">
-                <div className="flex flex-col items-center gap-2 text-red-700">
+              {/* Image placeholder */}
+              <div className="md:w-64 w-full h-48 md:h-auto bg-[#F5F5F5] flex items-center justify-center shrink-0">
+                <div className="flex flex-col items-center gap-2 text-[#CCCCCC]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-12 h-12"
@@ -67,35 +74,38 @@ export default function Projects() {
                       d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 21h18M3 3h18"
                     />
                   </svg>
-                  <span className="text-xs font-medium text-gray-500">Project Screenshot</span>
+                  <span className="text-[12px] text-[#8F8F8F] uppercase tracking-[1px]">
+                    Project Screenshot
+                  </span>
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-8 flex flex-col justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">
+                  <h2 className="text-[24px] font-normal text-[#181818] mb-3 leading-[1.2]">
                     {project.title}
                   </h2>
-                  <p className="text-gray-400 leading-relaxed text-sm mb-4">
+                  <p className="text-[#666666] leading-relaxed text-sm mb-5">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="bg-gray-900 text-red-400 text-xs font-medium px-3 py-1 rounded-full border border-red-900"
+                        className="text-[#8F8F8F] text-[11px] uppercase border border-[#CCCCCC] px-2 py-1 rounded-[2px] tracking-[1px]"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
                 </div>
+
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-red-500 hover:text-red-400 hover:underline"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[#181818] hover:text-[#3860BE] transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +123,8 @@ export default function Projects() {
         </div>
       </section>
 
-      <footer className="bg-black border-t border-red-900 text-gray-500 text-center text-sm py-6">
+      {/* Footer — Dark Surface */}
+      <footer className="bg-[#303030] text-[#8F8F8F] text-center text-sm py-6">
         © {new Date().getFullYear()} UniCode Club · All rights reserved
       </footer>
     </div>
