@@ -340,6 +340,18 @@ const features = [
 
 const teaserMembers = [
   {
+    name: "Rana El Machtoub",
+    role: "Club MAL",
+    quote:
+      "Nobody asked you, Ryan. But since you brought it up, my pull request had zero comments and merged in four minutes.",
+  },
+  {
+    name: "Emmanuel Abo Samra",
+    role: "Secretary",
+    quote:
+      "I just changed all of Alwalid's VS Code shortcuts. He's been using Notepad for two hours and hasn't noticed.",
+  },
+  {
     name: "Zeina Obeid",
     role: "President",
     quote:
@@ -352,20 +364,8 @@ const teaserMembers = [
       "Identity theft is not a joke, Emmanuel! Millions of GitHub accounts suffer every year.",
   },
   {
-    name: "Emmanuel Abo Samra",
-    role: "Secretary",
-    quote:
-      "I just changed all of Alwalid's VS Code shortcuts. He's been using Notepad for two hours and hasn't noticed.",
-  },
-  {
     name: "Kai Doddy",
     role: "Treasurer",
     quote: "Why waste time write lot code when few code do trick?",
-  },
-  {
-    name: "Rana El Machtoub",
-    role: "Club MAL",
-    quote:
-      "Nobody asked you, Ryan. But since you brought it up, my pull request had zero comments and merged in four minutes.",
   },
 ];
