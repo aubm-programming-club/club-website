@@ -57,8 +57,6 @@ body {
 }
 
 /* ── Loading screen (SystemInitScreen) ── */
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;700&display=swap');
-
 .crt-overlay {
   pointer-events: none; position: fixed; inset: 0; z-index: 9999; will-change: opacity;
   background:
