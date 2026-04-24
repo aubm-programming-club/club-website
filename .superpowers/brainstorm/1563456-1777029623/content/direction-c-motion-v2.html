@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction C — Dramatic Bidirectional Motion</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #000; font-family: 'Inter', sans-serif; color: #fff; overflow-x: hidden; }
+
+  /* ─────────────────────────────────────────
+     BIDIRECTIONAL SCROLL ANIMATION SYSTEM
+     - Scroll DOWN  → element rises from below (translateY +70px → 0)
+     - Scroll UP    → element sinks back down  (0 → translateY +70px)
+     - State tracked per element via IntersectionObserver + scroll dir
+  ───────────────────────────────────────── */
+  .motion {
+    opacity: 0;
+    transform: translateY(70px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+  .motion.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .motion.out-down {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  .motion.out-up {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+
+  .d1 { transition-delay: 0.06s; }
+  .d2 { transition-delay: 0.14s; }
+  .d3 { transition-delay: 0.22s; }
+  .d4 { transition-delay: 0.30s; }
+  .d5 { transition-delay: 0.38s; }
+
+  /* red line grows on enter */
+  .hero-line {
+    height: 2px; background: #DA291C;
+    width: 0; margin: 22px 0;
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+  }
+  .hero-line.in { width: 40px; }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: rgba(0,0,0,0.92);
+    border-bottom: 1px solid #111;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 64px; height: 58px;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-mark {
+    width: 28px; height: 28px; background: #DA291C;
+    border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  }
+  .nav-mark span { color: #fff; font-size: 10px; font-weight: 800; }
+  .nav-name { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.4px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: #444; font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a.active { color: #fff; border-bottom: 1px solid #DA291C; padding-bottom: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: #000; padding: 100px 80px 80px;
+    border-bottom: 1px solid #0d0d0d;
+    min-height: 94vh; display: flex; flex-direction: column; justify-content: center;
+  }
+  .eyebrow { color: #DA291C; font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+  .hero-title { color: #fff; font-size: 68px; font-weight: 500; line-height: 1.04; letter-spacing: -2.5px; max-width: 620px; }
+  .hero-sub { color: #3d3d3d; font-size: 15px; line-height: 1.75; max-width: 420px; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 14px; align-items: center; }
+  .btn-red {
+    background: #DA291C; color: #fff; font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase; padding: 13px 28px;
+    border-radius: 2px; cursor: pointer; transition: background 0.2s; border: none;
+  }
+  .btn-red:hover { background: #b8221a; }
+  .btn-text {
+    color: #333; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+    font-weight: 500; cursor: pointer; transition: color 0.2s;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .btn-text .arr { transition: transform 0.25s; color: #282828; }
+  .btn-text:hover { color: #777; }
+  .btn-text:hover .arr { transform: translateX(5px); color: #555; }
+
+  /* ── ABOUT ── */
+  .about {
+    background: #070707; padding: 96px 80px;
+    border-bottom: 1px solid #0d0d0d;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .sec-eye { color: #DA291C; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .sec-title { color: #fff; font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.6px; margin-bottom: 18px; }
+  .sec-body { color: #3a3a3a; font-size: 14px; line-height: 1.78; }
+  .points { display: flex; flex-direction: column; }
+  .point { display: flex; gap: 16px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid #0d0d0d; }
+  .point:first-child { padding-top: 4px; }
+  .point:last-child { border-bottom: none; }
+  .pdot { width: 4px; height: 4px; background: #DA291C; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .ptext { color: #2e2e2e; font-size: 13px; line-height: 1.65; }
+  .ptext strong { color: #666; font-weight: 600; display: block; margin-bottom: 3px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── GAMES ── */
+  .games { background: #000; padding: 96px 80px; border-bottom: 1px solid #0d0d0d; }
+  .sec-sub { color: #2e2e2e; font-size: 13.5px; line-height: 1.72; max-width: 500px; margin-top: 10px; margin-bottom: 40px; }
+  .gcards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #111; }
+  .gcard { background: #070707; padding: 44px 40px; transition: background 0.3s; }
+  .gcard:hover { background: #0a0a0a; }
+  .gtag { color: #DA291C; font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .gtag::before { content: ''; width: 18px; height: 1px; background: #DA291C; }
+  .gtitle { color: #fff; font-size: 22px; font-weight: 500; margin-bottom: 12px; letter-spacing: -0.3px; }
+  .gdesc { color: #333; font-size: 13px; line-height: 1.72; margin-bottom: 24px; }
+  .gpills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .gpill { background: #0a0a0a; border: 1px solid #161616; color: #333; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; }
+
+  /* ── FEATURES ── */
+  .features { background: #070707; padding: 96px 80px; border-bottom: 1px solid #0d0d0d; }
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #0d0d0d; margin-top: 40px; }
+  .fcard { background: #070707; padding: 40px 32px; transition: background 0.25s; }
+  .fcard:hover { background: #0b0b0b; }
+  .ficon { font-size: 20px; margin-bottom: 16px; }
+  .ftitle { color: #aaa; font-size: 13.5px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.2px; }
+  .fdesc { color: #252525; font-size: 12px; line-height: 1.68; }
+
+  /* ── MEMBERS ── */
+  .members { background: #000; padding: 96px 80px; border-bottom: 1px solid #0d0d0d; }
+  .mgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #111; margin-top: 40px; }
+  .mcard { background: #060606; overflow: hidden; }
+  .mtop { background: #000; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #0a0a0a; }
+  .mrec { display: flex; align-items: center; gap: 5px; }
+  .mrecdot { width: 6px; height: 6px; background: #DA291C; border-radius: 50%; animation: pdot 1.8s ease-in-out infinite; }
+  @keyframes pdot { 0%,100%{opacity:1} 50%{opacity:0.25} }
+  .mreclabel { color: #DA291C; font-size: 7px; letter-spacing: 1.5px; font-weight: 700; }
+  .mtime { color: #161616; font-size: 7px; font-family: monospace; }
+  .mavarea { background: #000; padding: 22px 12px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #DA291C; }
+  .mavatar { width: 50px; height: 50px; border-radius: 50%; background: #0a0a0a; border: 1px solid #161616; display: flex; align-items: center; justify-content: center; color: #DA291C; font-size: 13px; font-weight: 700; }
+  .mbody { padding: 12px 14px 16px; }
+  .mname { color: #fff; font-size: 12px; font-weight: 600; }
+  .mrole { color: #DA291C; font-size: 7.5px; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+  .mchar { color: #1a1a1a; font-size: 9.5px; font-style: italic; margin-top: 9px; line-height: 1.5; border-left: 2px solid #111; padding-left: 8px; }
+  .view-all { text-align: center; margin-top: 36px; }
+  .view-all a { color: #252525; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid #1a1a1a; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .view-all a:hover { color: #777; border-color: #555; }
+
+  /* ── FOOTER ── */
+  footer { background: #000; border-top: 1px solid #0d0d0d; padding: 28px 80px; display: flex; align-items: center; justify-content: space-between; }
+  .fbrand { color: #DA291C; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+  .fcopy { color: #181818; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: fixed; bottom: 24px; right: 24px;
+    background: #0d0d0d; border: 1px solid #1a1a1a; border-left: 2px solid #DA291C;
+    padding: 10px 14px; border-radius: 2px; font-size: 9px; color: #333;
+    letter-spacing: 1px; text-transform: uppercase; z-index: 999;
+    transition: opacity 0.4s;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-mark"><span>&lt;/&gt;</span></div>
+    <span class="nav-name">AUBM Programming Club</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <a href="#">Members</a>
+    <a href="#">Projects</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow motion in d1">AUBM · Open Day 2026</div>
+  <h1 class="hero-title motion in d2">Where students<br>build real software.</h1>
+  <div class="hero-line in"></div>
+  <p class="hero-sub motion in d3">A tight-knit programming club at American University of Beirut Mediterranean. We write code, ship projects, and invite you to try one right now.</p>
+  <div class="hero-ctas motion in d4">
+    <button class="btn-red">Meet the Team</button>
+    <span class="btn-text">View Projects <span class="arr">→</span></span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div>
+    <div class="sec-eye motion">About the Club</div>
+    <h2 class="sec-title motion d1">A place for builders<br>at AUBM.</h2>
+    <p class="sec-body motion d2">UniCode Club is a student-run organisation dedicated to programming, collaboration, and real-world software. We welcome everyone — from first-year coders to seasoned builders.</p>
+  </div>
+  <div class="points">
+    <div class="point motion d1"><div class="pdot"></div><div class="ptext"><strong>Weekly Coding Sessions</strong>Practice algorithms, build projects, sharpen skills every week.</div></div>
+    <div class="point motion d2"><div class="pdot"></div><div class="ptext"><strong>Hackathons &amp; Competitions</strong>University-wide and national events — compete, create, win.</div></div>
+    <div class="point motion d3"><div class="pdot"></div><div class="ptext"><strong>Open to All Levels</strong>Whether you've written one line or ten thousand, you belong here.</div></div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section class="games">
+  <div class="sec-eye motion">Open Day · Try It Now</div>
+  <h2 class="sec-title motion d1">Our Booth Games</h2>
+  <p class="sec-sub motion d2">We built two interactive coding games for today. Write a few lines of Python, press Enter, and watch your character jump across the screen. No experience needed.</p>
+  <div class="gcards">
+    <div class="gcard motion d1">
+      <div class="gtag">Ages 8–12</div>
+      <div class="gtitle">Junior Edition</div>
+      <div class="gdesc">Fill in a list of jump positions, press Enter, and watch the character leap over holes. One list, instant result. Pure beginner-friendly fun.</div>
+      <div class="gpills"><span class="gpill">Python</span><span class="gpill">Pygame</span><span class="gpill">Kid Game</span></div>
+    </div>
+    <div class="gcard motion d2">
+      <div class="gtag">Ages 13–17</div>
+      <div class="gtitle">Senior Edition</div>
+      <div class="gdesc">Use a for loop with range() to schedule all three jumps. Two lines of code. The correct answer sends the character flying across the finish.</div>
+      <div class="gpills"><span class="gpill">Python</span><span class="gpill">Pygame</span><span class="gpill">Teen Game</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="sec-eye motion">What We Do</div>
+  <h2 class="sec-title motion d1">Club Activities</h2>
+  <div class="fgrid">
+    <div class="fcard motion d1"><div class="ficon">⚡</div><div class="ftitle">Weekly Coding Sessions</div><div class="fdesc">Algorithms, competitive programming, and project sprints every week.</div></div>
+    <div class="fcard motion d2"><div class="ficon">🏆</div><div class="ftitle">Hackathons</div><div class="fdesc">University-wide and national competitions — build fast, build well.</div></div>
+    <div class="fcard motion d3"><div class="ficon">🤝</div><div class="ftitle">Open Collaboration</div><div class="fdesc">Real projects with real teammates. Build a portfolio that matters.</div></div>
+  </div>
+</section>
+
+<!-- MEMBERS — updated roles -->
+<section class="members">
+  <div class="sec-eye motion">The Team</div>
+  <h2 class="sec-title motion d1">Meet the people behind the club.</h2>
+  <p class="sec-sub motion d2" style="margin-bottom:0;">Four core members shown — full roster on the Members page.</p>
+  <div class="mgrid">
+    <div class="mcard motion d1">
+      <div class="mtop"><div class="mrec"><div class="mrecdot"></div><span class="mreclabel">REC</span></div><span class="mtime">00:00:00:00</span></div>
+      <div class="mavarea"><div class="mavatar">ZO</div></div>
+      <div class="mbody"><div class="mname">Zeina Obeid</div><div class="mrole">President</div><div class="mchar">"I want people to be afraid of how much they love my code."</div></div>
+    </div>
+    <div class="mcard motion d2">
+      <div class="mtop"><div class="mrec"><div class="mrecdot"></div><span class="mreclabel">REC</span></div><span class="mtime">00:00:00:00</span></div>
+      <div class="mavarea"><div class="mavatar">AH</div></div>
+      <div class="mbody"><div class="mname">Alwalid Hemaid</div><div class="mrole">Vice President</div><div class="mchar">"Identity theft is not a joke, Emmanuel!"</div></div>
+    </div>
+    <div class="mcard motion d3">
+      <div class="mtop"><div class="mrec"><div class="mrecdot"></div><span class="mreclabel">REC</span></div><span class="mtime">00:00:00:00</span></div>
+      <div class="mavarea"><div class="mavatar">EA</div></div>
+      <div class="mbody"><div class="mname">Emmanuel Abo Samra</div><div class="mrole">Secretary</div><div class="mchar">"He's been using Notepad for two hours and hasn't noticed."</div></div>
+    </div>
+    <div class="mcard motion d4">
+      <div class="mtop"><div class="mrec"><div class="mrecdot"></div><span class="mreclabel">REC</span></div><span class="mtime">00:00:00:00</span></div>
+      <div class="mavarea"><div class="mavatar">KD</div></div>
+      <div class="mbody"><div class="mname">Kai Dodson</div><div class="mrole">Treasurer</div><div class="mchar">"Why waste time write lot code when few code do trick?"</div></div>
+    </div>
+  </div>
+  <div class="view-all motion d5"><a href="#">View All Members →</a></div>
+</section>
+
+<footer>
+  <span class="fbrand">AUBM Programming Club</span>
+  <span class="fcopy">© 2026 · All rights reserved</span>
+</footer>
+
+<div class="scroll-hint" id="hint">↓ Scroll to see motion</div>
+
+<script>
+  // ── Bidirectional scroll animation engine ──
+  let lastY = window.scrollY;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      const goingDown = window.scrollY >= lastY;
+
+      if (el.isIntersecting) {
+        // entering viewport — always float in from below
+        el.target.classList.remove('out-down', 'out-up');
+        el.target.classList.add('in');
+      } else {
+        // leaving viewport
+        el.target.classList.remove('in');
+        if (goingDown) {
+          // scrolling down past it — it floats up and out
+          el.target.classList.add('out-up');
+          el.target.classList.remove('out-down');
+        } else {
+          // scrolling up past it — it sinks back down
+          el.target.classList.add('out-down');
+          el.target.classList.remove('out-up');
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  window.addEventListener('scroll', () => { lastY = window.scrollY; }, { passive: true });
+
+  document.querySelectorAll('.motion:not(.in)').forEach(el => io.observe(el));
+
+  // hide hint after first scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('hint').style.opacity = '0';
+  }, { once: true });
+</script>
+</body>
+</html>

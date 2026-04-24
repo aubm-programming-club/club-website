@@ -1,0 +1,150 @@
+<h2>Overall Design Direction</h2>
+<p class="subtitle">Three ways to blend Ferrari's editorial aesthetic with AUBM club identity. Which feels right for the open day?</p>
+
+<div class="cards">
+
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#000;padding:0;overflow:hidden;height:280px;position:relative;">
+      <!-- NAV -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #1a1a1a;">
+        <span style="color:#DA291C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">AUBM Programming Club</span>
+        <span style="color:#555;font-size:9px;letter-spacing:1px;">HOME &nbsp; MEMBERS &nbsp; PROJECTS</span>
+      </div>
+      <!-- HERO -->
+      <div style="padding:28px 16px 12px;border-bottom:1px solid #111;">
+        <div style="color:#444;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">AUBM · OPEN DAY 2026</div>
+        <div style="color:#fff;font-size:22px;font-weight:500;line-height:1.2;margin-bottom:6px;">Build the future.<br>Write the code.</div>
+        <div style="color:#666;font-size:9px;letter-spacing:1px;">A student-run programming club at AUB Mediterranean</div>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <span style="background:#DA291C;color:#fff;font-size:8px;padding:5px 10px;letter-spacing:1px;">MEET THE TEAM</span>
+          <span style="border:1px solid #333;color:#888;font-size:8px;padding:5px 10px;letter-spacing:1px;">OUR PROJECTS</span>
+        </div>
+      </div>
+      <!-- STATS ROW -->
+      <div style="display:flex;border-bottom:1px solid #111;">
+        <div style="flex:1;padding:8px 12px;border-right:1px solid #111;">
+          <div style="color:#DA291C;font-size:14px;font-weight:700;">10+</div>
+          <div style="color:#444;font-size:7px;letter-spacing:1px;text-transform:uppercase;">Members</div>
+        </div>
+        <div style="flex:1;padding:8px 12px;border-right:1px solid #111;">
+          <div style="color:#DA291C;font-size:14px;font-weight:700;">3+</div>
+          <div style="color:#444;font-size:7px;letter-spacing:1px;text-transform:uppercase;">Projects</div>
+        </div>
+        <div style="flex:1;padding:8px 12px;">
+          <div style="color:#DA291C;font-size:14px;font-weight:700;">1st</div>
+          <div style="color:#444;font-size:7px;letter-spacing:1px;text-transform:uppercase;">Year</div>
+        </div>
+      </div>
+      <!-- ABOUT TEASER -->
+      <div style="padding:10px 16px;background:#0a0a0a;">
+        <div style="color:#333;font-size:7px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">ABOUT</div>
+        <div style="color:#555;font-size:8px;line-height:1.5;">We host workshops, build real projects, and showcase<br>student talent at events like this one.</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A · Ferrari Editorial</h3>
+      <p>Ultra-clean chiaroscuro rhythm — alternating pure black sections with near-black panels. Red used with maximum restraint (one element per section). Feels like a premium institutional site. Every section is a vignette.</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0a;padding:0;overflow:hidden;height:280px;position:relative;">
+      <!-- NAV -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#000;border-bottom:1px solid #1a0000;">
+        <span style="color:#DA291C;font-size:12px;font-weight:800;letter-spacing:1px;">&lt;/&gt; AUBM Club</span>
+        <span style="color:#555;font-size:9px;letter-spacing:1px;">HOME &nbsp; MEMBERS &nbsp; PROJECTS</span>
+      </div>
+      <!-- HERO with code decoration -->
+      <div style="padding:20px 16px 12px;position:relative;overflow:hidden;background:#000;border-bottom:1px solid #1a0000;">
+        <div style="position:absolute;right:10px;top:8px;color:#1a0000;font-size:36px;font-family:monospace;font-weight:900;line-height:1;">{"</div>
+        <div style="color:#DA291C;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">// WELCOME TO OPEN DAY</div>
+        <div style="color:#fff;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:4px;">We build things<br>that <span style="color:#DA291C;">actually work.</span></div>
+        <div style="color:#555;font-size:8px;margin-bottom:10px;">Python · React · TypeScript · and more</div>
+        <div style="display:flex;gap:8px;">
+          <span style="background:#DA291C;color:#fff;font-size:8px;padding:5px 12px;border-radius:1px;">EXPLORE PROJECTS →</span>
+          <span style="border:1px solid #DA291C;color:#DA291C;font-size:8px;padding:5px 12px;border-radius:1px;">MEET TEAM</span>
+        </div>
+      </div>
+      <!-- FEATURES GRID -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#1a0000;border-top:1px solid #1a0000;">
+        <div style="background:#0a0a0a;padding:10px 12px;">
+          <div style="color:#DA291C;font-size:16px;margin-bottom:3px;">⚡</div>
+          <div style="color:#ccc;font-size:8px;font-weight:600;">Weekly Coding</div>
+          <div style="color:#444;font-size:7px;margin-top:2px;">Practice & compete</div>
+        </div>
+        <div style="background:#0a0a0a;padding:10px 12px;border-left:1px solid #1a0000;">
+          <div style="color:#DA291C;font-size:16px;margin-bottom:3px;">🏆</div>
+          <div style="color:#ccc;font-size:8px;font-weight:600;">Hackathons</div>
+          <div style="color:#444;font-size:7px;margin-top:2px;">Build & win</div>
+        </div>
+        <div style="background:#0a0a0a;padding:10px 12px;border-left:1px solid #1a0000;">
+          <div style="color:#DA291C;font-size:16px;margin-bottom:3px;">🤝</div>
+          <div style="color:#ccc;font-size:8px;font-weight:600;">Collaborate</div>
+          <div style="color:#444;font-size:7px;margin-top:2px;">Real projects</div>
+        </div>
+      </div>
+      <!-- TERMINAL TEASER -->
+      <div style="margin:0;padding:8px 16px;background:#0d0d0d;border-top:1px solid #111;font-family:monospace;">
+        <div style="color:#DA291C;font-size:7px;">$ python kid_game/main.py</div>
+        <div style="color:#555;font-size:7px;">→ Try our open day booth game!</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B · Energetic Coder</h3>
+      <p>More personality — code brackets, monospace accents, terminal aesthetics. Red used more actively as a theme color. Still dark, but feels like a developer community rather than an institution. Warmer and more approachable for open day visitors.</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#000;padding:0;overflow:hidden;height:280px;position:relative;">
+      <!-- NAV -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #111;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:16px;height:16px;background:#DA291C;display:flex;align-items:center;justify-content:center;">
+            <span style="color:#fff;font-size:7px;font-weight:900;">&lt;/&gt;</span>
+          </div>
+          <span style="color:#fff;font-size:10px;font-weight:600;letter-spacing:1px;">AUBM PROGRAMMING CLUB</span>
+        </div>
+        <span style="color:#444;font-size:8px;letter-spacing:1px;">HOME &nbsp; MEMBERS &nbsp; PROJECTS</span>
+      </div>
+      <!-- HERO - clean with character -->
+      <div style="padding:22px 16px 14px;background:linear-gradient(180deg,#000 0%,#080808 100%);border-bottom:1px solid #111;">
+        <div style="color:#DA291C;font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;font-weight:600;">AUBM · OPEN DAY</div>
+        <div style="color:#fff;font-size:21px;font-weight:600;line-height:1.25;margin-bottom:6px;">Where students<br>build real software.</div>
+        <div style="width:24px;height:2px;background:#DA291C;margin-bottom:8px;"></div>
+        <div style="color:#555;font-size:8px;line-height:1.6;margin-bottom:10px;">A tight-knit team of builders, designers, and tinkerers<br>at American University of Beirut Mediterranean.</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="background:#DA291C;color:#fff;font-size:8px;padding:6px 12px;letter-spacing:1px;border-radius:2px;">MEET THE TEAM</span>
+          <span style="color:#444;font-size:8px;letter-spacing:1px;">→ See projects</span>
+        </div>
+      </div>
+      <!-- TWO TEASERS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#111;">
+        <div style="background:#000;padding:10px 14px;">
+          <div style="color:#DA291C;font-size:7px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">BOOTH GAMES</div>
+          <div style="color:#ccc;font-size:9px;font-weight:500;margin-bottom:2px;">Try our coding games</div>
+          <div style="color:#444;font-size:7px;line-height:1.5;">Kid &amp; teen editions · Python · Pygame</div>
+        </div>
+        <div style="background:#000;padding:10px 14px;border-left:1px solid #111;">
+          <div style="color:#DA291C;font-size:7px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">THE TEAM</div>
+          <div style="color:#ccc;font-size:9px;font-weight:500;margin-bottom:2px;">10 members, 1 vision</div>
+          <div style="color:#444;font-size:7px;line-height:1.5;">Office-inspired, campus-built</div>
+        </div>
+      </div>
+      <!-- FOOTER HINT -->
+      <div style="padding:8px 16px;background:#050505;border-top:1px solid #0d0d0d;">
+        <div style="color:#222;font-size:7px;letter-spacing:2px;text-transform:uppercase;">AUBM PROGRAMMING CLUB · SEASON 01</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C · Ferrari Structure + Club Soul</h3>
+      <p>Borrows Ferrari's editorial precision (chiaroscuro, restrained red, near-zero radius, typographic hierarchy) but keeps the club's personality — the Office-themed members page, the booth games prominently featured, an intimate tone. The university feel without losing warmth.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Click a card to select. You can pick more than one if you want a blend.</p>

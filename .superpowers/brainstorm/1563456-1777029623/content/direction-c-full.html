@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction C — Full Page Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; font-family: 'Inter', sans-serif; color: #fff; }
+
+  .page-label {
+    background: #2a2a2a;
+    color: #888;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-bottom: 1px solid #333;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .site-frame {
+    max-width: 900px;
+    margin: 24px auto;
+    border: 1px solid #333;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  }
+
+  /* NAVBAR */
+  .nav {
+    background: #000;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 56px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-mark {
+    width: 28px; height: 28px;
+    background: #DA291C;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+  }
+  .nav-mark span { color: #fff; font-size: 10px; font-weight: 800; }
+  .nav-name { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: #555; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; }
+  .nav-links a.active { color: #fff; border-bottom: 1px solid #DA291C; padding-bottom: 2px; }
+
+  /* HERO */
+  .hero {
+    background: #000;
+    padding: 72px 48px 60px;
+    border-bottom: 1px solid #111;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    color: #DA291C;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+    max-width: 520px;
+  }
+  .hero-divider {
+    width: 32px; height: 2px;
+    background: #DA291C;
+    margin: 18px 0;
+  }
+  .hero-sub {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 400px;
+    margin-bottom: 32px;
+  }
+  .hero-ctas { display: flex; gap: 12px; align-items: center; }
+  .btn-primary {
+    background: #DA291C; color: #fff;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 2px;
+    border: none; cursor: pointer;
+    display: inline-block;
+  }
+  .btn-ghost {
+    color: #444; font-size: 11px;
+    letter-spacing: 1px; text-transform: uppercase;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-ghost::after { content: '→'; color: #333; }
+
+  /* STATS */
+  .stats {
+    background: #000;
+    border-bottom: 1px solid #111;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .stat {
+    padding: 24px 32px;
+    border-right: 1px solid #111;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num { color: #DA291C; font-size: 28px; font-weight: 700; line-height: 1; }
+  .stat-label { color: #333; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ABOUT */
+  .about {
+    background: #080808;
+    padding: 60px 48px;
+    border-bottom: 1px solid #111;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-label { color: #DA291C; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .about-title { color: #fff; font-size: 26px; font-weight: 500; line-height: 1.25; margin-bottom: 16px; }
+  .about-body { color: #555; font-size: 13px; line-height: 1.7; }
+  .about-right { display: flex; flex-direction: column; gap: 16px; }
+  .about-point {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #111;
+  }
+  .about-point:last-child { border-bottom: none; padding-bottom: 0; }
+  .about-dot { width: 4px; height: 4px; background: #DA291C; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .about-point-text { color: #444; font-size: 12px; line-height: 1.6; }
+  .about-point-text strong { color: #888; font-weight: 600; display: block; margin-bottom: 2px; font-size: 11px; letter-spacing: 0.5px; }
+
+  /* BOOTH GAMES — featured section */
+  .games {
+    background: #000;
+    border-bottom: 1px solid #111;
+    padding: 60px 48px;
+  }
+  .section-eyebrow { color: #DA291C; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .section-title { color: #fff; font-size: 26px; font-weight: 500; margin-bottom: 6px; }
+  .section-sub { color: #444; font-size: 12px; line-height: 1.6; max-width: 520px; margin-bottom: 32px; }
+  .game-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #111; }
+  .game-card {
+    background: #080808;
+    padding: 32px 28px;
+  }
+  .game-tag { color: #DA291C; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .game-tag::before { content: ''; width: 12px; height: 1px; background: #DA291C; }
+  .game-title { color: #fff; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .game-desc { color: #444; font-size: 12px; line-height: 1.65; margin-bottom: 20px; }
+  .game-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .game-pill { background: #111; border: 1px solid #1a1a1a; color: #555; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+
+  /* FEATURES */
+  .features {
+    background: #080808;
+    border-bottom: 1px solid #111;
+    padding: 60px 48px;
+  }
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #111; margin-top: 32px; }
+  .feature {
+    background: #080808;
+    padding: 32px 24px;
+  }
+  .feature-icon { color: #DA291C; font-size: 20px; margin-bottom: 12px; }
+  .feature-title { color: #ccc; font-size: 13px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .feature-desc { color: #3a3a3a; font-size: 11px; line-height: 1.6; }
+
+  /* MEMBERS TEASER */
+  .members-teaser {
+    background: #000;
+    border-bottom: 1px solid #111;
+    padding: 60px 48px;
+  }
+  .member-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #111; margin-top: 32px; }
+  .member-card { background: #060606; padding: 0; overflow: hidden; }
+  .mc-top {
+    background: #000;
+    padding: 6px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #111;
+  }
+  .mc-rec { display: flex; align-items: center; gap: 4px; }
+  .mc-dot { width: 6px; height: 6px; background: #DA291C; border-radius: 50%; }
+  .mc-rec-label { color: #DA291C; font-size: 7px; letter-spacing: 1px; font-weight: 700; }
+  .mc-time { color: #222; font-size: 7px; font-family: monospace; }
+  .mc-avatar-area {
+    background: #000;
+    padding: 20px 16px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 2px solid #DA291C;
+  }
+  .mc-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #0d0d0d; border: 1px solid #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    color: #DA291C; font-size: 14px; font-weight: 700;
+  }
+  .mc-body { padding: 12px 14px; }
+  .mc-name { color: #fff; font-size: 12px; font-weight: 600; }
+  .mc-role { color: #DA291C; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+  .mc-char { color: #222; font-size: 8px; font-style: italic; margin-top: 6px; line-height: 1.4; }
+
+  /* FOOTER */
+  .footer {
+    background: #000;
+    border-top: 1px solid #111;
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand { color: #DA291C; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+  .footer-copy { color: #222; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* annotation */
+  .annotation {
+    max-width: 900px;
+    margin: 0 auto 8px;
+    padding: 0 4px;
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* scroll note */
+  .scroll-note {
+    text-align: center;
+    color: #444;
+    font-size: 11px;
+    padding: 24px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-label">Direction C — Full Page Preview · Scroll to see all sections · http://localhost:63116</div>
+
+<div style="height:16px;"></div>
+
+<div class="annotation">↓ Navbar</div>
+<div class="site-frame">
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-mark"><span>&lt;/&gt;</span></div>
+      <span class="nav-name">AUBM Programming Club</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#">Members</a>
+      <a href="#">Projects</a>
+    </div>
+  </nav>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ Hero — chiaroscuro opening, red eyebrow, restrained CTA</div>
+<div class="site-frame" style="margin-top:0;">
+  <section class="hero">
+    <div class="hero-eyebrow">AUBM · Open Day 2026</div>
+    <h1 class="hero-title">Where students<br>build real software.</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">A tight-knit programming club at American University of Beirut Mediterranean. We write code, ship projects, and invite you to try one right now.</p>
+    <div class="hero-ctas">
+      <span class="btn-primary">Meet the Team</span>
+      <span class="btn-ghost">View Projects</span>
+    </div>
+  </section>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ Stats bar — numbers, red accent, no decoration</div>
+<div class="site-frame" style="margin-top:0;">
+  <div class="stats">
+    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Members</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Booth Games</div></div>
+    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Season</div></div>
+  </div>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ About — dark panel, editorial two-column layout</div>
+<div class="site-frame" style="margin-top:0;">
+  <section class="about">
+    <div>
+      <div class="about-label">About the Club</div>
+      <h2 class="about-title">A place for builders<br>at AUBM.</h2>
+      <p class="about-body">UniCode Club is a student-run organisation dedicated to programming, collaboration, and real-world software. We welcome everyone — from first-year coders to seasoned builders.</p>
+    </div>
+    <div class="about-right">
+      <div class="about-point">
+        <div class="about-dot"></div>
+        <div class="about-point-text"><strong>Weekly Coding Sessions</strong>Practice algorithms, build projects, sharpen skills every week.</div>
+      </div>
+      <div class="about-point">
+        <div class="about-dot"></div>
+        <div class="about-point-text"><strong>Hackathons &amp; Competitions</strong>University-wide and national events — compete, create, win.</div>
+      </div>
+      <div class="about-point">
+        <div class="about-dot"></div>
+        <div class="about-point-text"><strong>Open to All Levels</strong>Whether you've written one line or ten thousand, you belong here.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ Booth Games — prominently featured, editorial card grid</div>
+<div class="site-frame" style="margin-top:0;">
+  <section class="games">
+    <div class="section-eyebrow">Open Day · Try It Now</div>
+    <h2 class="section-title">Our Booth Games</h2>
+    <p class="section-sub">We built two interactive coding games for today. Sit down, write a few lines of Python, and watch your character jump across the screen. No experience needed.</p>
+    <div class="game-cards">
+      <div class="game-card">
+        <div class="game-tag">Ages 8–12</div>
+        <div class="game-title">Junior Edition</div>
+        <div class="game-desc">Fill in a list of jump positions, press Enter, and watch the character leap over holes. One list, instant result. Pure beginner-friendly fun.</div>
+        <div class="game-meta">
+          <span class="game-pill">Python</span>
+          <span class="game-pill">Pygame</span>
+          <span class="game-pill">Kid Game</span>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-tag">Ages 13–17</div>
+        <div class="game-title">Senior Edition</div>
+        <div class="game-desc">Use a for loop with range() to schedule all three jumps. Two lines of code. The correct answer sends the character flying across the finish.</div>
+        <div class="game-meta">
+          <span class="game-pill">Python</span>
+          <span class="game-pill">Pygame</span>
+          <span class="game-pill">Teen Game</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ Features — grid with red icon accents, near-black surface</div>
+<div class="site-frame" style="margin-top:0;">
+  <section class="features">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">Club Activities</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Weekly Coding Sessions</div>
+        <div class="feature-desc">Algorithms, competitive programming, and project sprints every week.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Hackathons</div>
+        <div class="feature-desc">University-wide and national competitions — build fast, build well.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-title">Open Collaboration</div>
+        <div class="feature-desc">Real projects with real teammates. Build a portfolio that matters.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ Members teaser — Office-camera card style preserved</div>
+<div class="site-frame" style="margin-top:0;">
+  <section class="members-teaser">
+    <div class="section-eyebrow">The Team</div>
+    <h2 class="section-title">Meet the people behind the club.</h2>
+    <p class="section-sub">Ten members, one shared obsession. Documentary-style portraits included.</p>
+    <div class="member-cards">
+      <div class="member-card">
+        <div class="mc-top">
+          <div class="mc-rec"><div class="mc-dot"></div><span class="mc-rec-label">REC</span></div>
+          <span class="mc-time">00:00:00:00</span>
+        </div>
+        <div class="mc-avatar-area"><div class="mc-avatar">ZO</div></div>
+        <div class="mc-body">
+          <div class="mc-name">Zeina Obeid</div>
+          <div class="mc-role">President</div>
+          <div class="mc-char">The Michael Scott · "I want people to be afraid of how much they love my code."</div>
+        </div>
+      </div>
+      <div class="member-card">
+        <div class="mc-top">
+          <div class="mc-rec"><div class="mc-dot"></div><span class="mc-rec-label">REC</span></div>
+          <span class="mc-time">00:00:00:00</span>
+        </div>
+        <div class="mc-avatar-area"><div class="mc-avatar">AH</div></div>
+        <div class="mc-body">
+          <div class="mc-name">Alwalid Hemaid</div>
+          <div class="mc-role">Vice President</div>
+          <div class="mc-char">The Dwight Schrute · "Identity theft is not a joke, Emmanuel!"</div>
+        </div>
+      </div>
+      <div class="member-card">
+        <div class="mc-top">
+          <div class="mc-rec"><div class="mc-dot"></div><span class="mc-rec-label">REC</span></div>
+          <span class="mc-time">00:00:00:00</span>
+        </div>
+        <div class="mc-avatar-area"><div class="mc-avatar">EA</div></div>
+        <div class="mc-body">
+          <div class="mc-name">Emmanuel Abo Samra</div>
+          <div class="mc-role">Lead Developer</div>
+          <div class="mc-char">The Jim Halpert · "He's been using Notepad for two hours."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div style="height:2px;"></div>
+<div class="annotation">↓ Footer</div>
+<div class="site-frame" style="margin-top:0;margin-bottom:32px;">
+  <footer class="footer">
+    <span class="footer-brand">AUBM Programming Club</span>
+    <span class="footer-copy">© 2026 UniCode Club · All rights reserved</span>
+  </footer>
+</div>
+
+<div class="scroll-note">↑ Scroll up to see the full page · All sections shown above</div>
+
+</body>
+</html>

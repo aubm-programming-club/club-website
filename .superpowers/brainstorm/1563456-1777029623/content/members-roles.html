@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All 10 Members — Proposed Roles</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0d0d0d; font-family:'Inter',sans-serif; color:#fff; padding:32px; }
+  h2 { font-size:18px; font-weight:600; color:#fff; margin-bottom:6px; letter-spacing:-0.3px; }
+  .sub { color:#444; font-size:12px; margin-bottom:28px; line-height:1.6; }
+  .sub span { color:#DA291C; }
+
+  .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:#1a1a1a; margin-bottom:32px; }
+
+  .card { background:#080808; overflow:hidden; position:relative; }
+  .card.confirmed { background:#080808; }
+  .card.derived { background:#070707; }
+
+  .ctop { background:#000; padding:7px 10px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #0d0d0d; }
+  .crec { display:flex; align-items:center; gap:4px; }
+  .cdot { width:5px; height:5px; background:#DA291C; border-radius:50%; animation:pd 1.8s ease-in-out infinite; }
+  @keyframes pd { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .clabel { color:#DA291C; font-size:6.5px; letter-spacing:1.5px; font-weight:700; }
+  .ctime { color:#141414; font-size:6.5px; font-family:monospace; }
+
+  .cavarea { background:#000; padding:18px 10px; display:flex; align-items:center; justify-content:center; border-bottom:2px solid #DA291C; }
+  .cav { width:44px; height:44px; border-radius:50%; background:#0a0a0a; border:1px solid #151515; display:flex; align-items:center; justify-content:center; color:#DA291C; font-size:12px; font-weight:700; }
+
+  .cbody { padding:10px 12px 14px; }
+  .cname { color:#e0e0e0; font-size:11.5px; font-weight:600; }
+  .crole { color:#DA291C; font-size:7px; letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+  .cchar { color:#333; font-size:9px; margin-top:6px; font-style:italic; }
+  .cquote { color:#1c1c1c; font-size:9px; margin-top:6px; line-height:1.5; border-left:2px solid #111; padding-left:7px; font-style:italic; }
+  .cbadge {
+    position:absolute; top:8px; right:8px;
+    font-size:6.5px; letter-spacing:1px; text-transform:uppercase; padding:2px 6px; border-radius:1px; font-weight:600;
+  }
+  .cbadge.set { background:#0d1a0d; color:#2a6e2a; border:1px solid #1a2e1a; }
+  .cbadge.derived { background:#1a1000; color:#6e4a00; border:1px solid #2e1e00; }
+
+  /* LOADING SCREEN SLOT */
+  .ls-slot {
+    background:#070707; border:1px dashed #1a1a1a; border-left:2px solid #DA291C;
+    padding:20px 24px; border-radius:2px; margin-bottom:24px;
+  }
+  .ls-title { font-size:11px; font-weight:600; color:#555; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .ls-desc { color:#2e2e2e; font-size:12px; line-height:1.65; }
+  .ls-desc code { color:#444; background:#0d0d0d; padding:1px 6px; border-radius:2px; font-size:11px; font-family:monospace; }
+
+  .legend { display:flex; gap:16px; margin-bottom:20px; }
+  .leg { display:flex; align-items:center; gap:6px; font-size:10px; color:#444; letter-spacing:0.5px; }
+  .leg-dot { width:8px; height:8px; border-radius:1px; }
+</style>
+</head>
+<body>
+
+<h2>All 10 Members — Proposed Club Roles</h2>
+<p class="sub">Roles for the 4 confirmed members are <span>set by you</span>. The remaining 6 are derived from their Office character descriptions in the branch — approve, rename, or swap any.</p>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#1a3a1a;border:1px solid #2a6e2a;"></div> Role confirmed by you</div>
+  <div class="leg"><div class="leg-dot" style="background:#2a1a00;border:1px solid #6e4a00;"></div> Role derived from description</div>
+</div>
+
+<!-- Row 1: confirmed 4 + Stephanos -->
+<div class="grid">
+
+  <div class="card confirmed">
+    <span class="cbadge set">Confirmed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">ZO</div></div>
+    <div class="cbody">
+      <div class="cname">Zeina Obeid</div>
+      <div class="crole">President</div>
+      <div class="cchar">The Michael Scott</div>
+      <div class="cquote">"I want people to be afraid of how much they love my code."</div>
+    </div>
+  </div>
+
+  <div class="card confirmed">
+    <span class="cbadge set">Confirmed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">AH</div></div>
+    <div class="cbody">
+      <div class="cname">Alwalid Hemaid</div>
+      <div class="crole">Vice President</div>
+      <div class="cchar">The Dwight Schrute</div>
+      <div class="cquote">"Identity theft is not a joke, Emmanuel!"</div>
+    </div>
+  </div>
+
+  <div class="card confirmed">
+    <span class="cbadge set">Confirmed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">EA</div></div>
+    <div class="cbody">
+      <div class="cname">Emmanuel Abo Samra</div>
+      <div class="crole">Secretary</div>
+      <div class="cchar">The Jim Halpert</div>
+      <div class="cquote">"He's been using Notepad for two hours and hasn't noticed."</div>
+    </div>
+  </div>
+
+  <div class="card confirmed">
+    <span class="cbadge set">Confirmed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">KD</div></div>
+    <div class="cbody">
+      <div class="cname">Kai Doddy</div>
+      <div class="crole">Treasurer</div>
+      <div class="cchar">The Kevin Malone</div>
+      <div class="cquote">"Why waste time write lot code when few code do trick?"</div>
+    </div>
+  </div>
+
+  <!-- Stephanos — derived: "brutally honest code reviews", "always right", "Senior Dev" -->
+  <div class="card derived">
+    <span class="cbadge derived">Proposed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">ST</div></div>
+    <div class="cbody">
+      <div class="cname">Stephanos</div>
+      <div class="crole">Technical Lead</div>
+      <div class="cchar">The Stanley Hudson</div>
+      <div class="cquote">"Did I stutter? The function returns null. Read the docs."</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Row 2: remaining 5 -->
+<div class="grid" style="grid-template-columns:repeat(5,1fr)">
+
+  <!-- Lea — derived: "runs the whole frontend aesthetic", "Figma" -->
+  <div class="card derived">
+    <span class="cbadge derived">Proposed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">LE</div></div>
+    <div class="cbody">
+      <div class="cname">Lea</div>
+      <div class="crole">Head of Design</div>
+      <div class="cchar">The Pam Beesly</div>
+      <div class="cquote">"I suggested a better color palette once. Now I'm the entire design dept."</div>
+    </div>
+  </div>
+
+  <!-- Lucas — derived: "14 unfinished side projects", "mass-refactoring" -->
+  <div class="card derived">
+    <span class="cbadge derived">Proposed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">LU</div></div>
+    <div class="cbody">
+      <div class="cname">Lucas</div>
+      <div class="crole">Web Developer</div>
+      <div class="cchar">The Ryan Howard</div>
+      <div class="cquote">"It's not just a CRUD app. It's a disruptive platform."</div>
+    </div>
+  </div>
+
+  <!-- Mariam — derived: "code standards enforcer", "PR gatekeeper" -->
+  <div class="card derived">
+    <span class="cbadge derived">Proposed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">MA</div></div>
+    <div class="cbody">
+      <div class="cname">Mariam</div>
+      <div class="crole">Quality Lead</div>
+      <div class="cchar">The Angela Martin</div>
+      <div class="cquote">"I don't care if it works on your machine."</div>
+    </div>
+  </div>
+
+  <!-- Jad — derived: explicitly "Events Coordinator", organizes every event -->
+  <div class="card derived">
+    <span class="cbadge derived">Proposed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">JA</div></div>
+    <div class="cbody">
+      <div class="cname">Jad</div>
+      <div class="crole">Events Coordinator</div>
+      <div class="cchar">The Andy Bernard</div>
+      <div class="cquote">"I went to hackathon. Just thought you should know."</div>
+    </div>
+  </div>
+
+  <!-- Raphael — derived: "Technical Advisor", corrects Big-O, "always has the right answer" -->
+  <div class="card derived">
+    <span class="cbadge derived">Proposed</span>
+    <div class="ctop"><div class="crec"><div class="cdot"></div><span class="clabel">REC</span></div><span class="ctime">00:00:00:00</span></div>
+    <div class="cavarea"><div class="cav">RA</div></div>
+    <div class="cbody">
+      <div class="cname">Raphael</div>
+      <div class="crole">Technical Advisor</div>
+      <div class="cchar">The Oscar Martinez</div>
+      <div class="cquote">"Actually, that's an O(n²) solution. Let me show you the optimal approach."</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LOADING SCREEN SLOT -->
+<div class="ls-slot">
+  <div class="ls-title">⏳ Loading Screen — Awaiting Source Repo</div>
+  <div class="ls-desc">
+    The custom loading screen from <code>aub-med-loading.vercel.app</code> will replace the current <code>LoadingScreen.tsx</code> component. Implementation plan: once the repo is shared, extract the animation logic and assets, wrap it in the same <code>{ onDone }</code> prop interface, and drop it in. The session-storage "first visit only" guard already in <code>home.tsx</code> stays unchanged. <strong style="color:#444;">No other files need to change.</strong>
+  </div>
+</div>
+
+</body>
+</html>
