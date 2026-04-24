@@ -99,6 +99,15 @@ const members = [
     description:
       "The smartest person in the room who will politely correct your Big-O analysis mid-presentation. Always has the right answer and the documentation to back it up.",
   },
+  {
+    name: "Rana El Machtoub",
+    role: "Club MAL",
+    officeCharacter: "The Kelly Kapoor",
+    quote:
+      "Nobody asked you, Ryan. But since you brought it up, my pull request had zero comments and merged in four minutes.",
+    description:
+      "Keeps the club's social pulse alive — somehow makes standup feel like a talk show. Deceptively sharp developer who ships quietly and takes credit loudly. Will absolutely bring cupcakes to the next meeting.",
+  },
 ];
 
 function getInitials(name: string) {

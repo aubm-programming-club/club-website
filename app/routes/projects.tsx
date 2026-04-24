@@ -33,21 +33,12 @@ const projects = [
   },
   {
     id: 3,
-    title: "CampusConnect",
+    title: "SeismAlert",
     description:
-      "A full-stack web application that connects university students with clubs, events, and study groups on campus. Features include real-time notifications, an event calendar, and a chat system built with React and Node.js.",
-    tech: ["React", "Node.js", "PostgreSQL", "Socket.io"],
-    link: "https://github.com/unicode-club/campus-connect",
-    linkLabel: "View on GitHub",
-  },
-  {
-    id: 4,
-    title: "AlgoViz",
-    description:
-      "An interactive algorithm visualization tool that animates sorting, graph traversal, and pathfinding algorithms step by step. Designed to help students understand data structures and algorithms through visual learning.",
-    tech: ["TypeScript", "React", "Tailwind CSS", "D3.js"],
-    link: "https://github.com/unicode-club/algoviz",
-    linkLabel: "View on GitHub",
+      "A real-time earthquake detection and public alerting system inspired by the tremors felt across Paphos. Monitors live seismic data feeds, classifies events by magnitude and depth, and pushes geo-targeted alerts to nearby users within seconds of detection.",
+    tech: ["Python", "FastAPI", "WebSockets", "PostgreSQL"],
+    link: null,
+    linkLabel: null,
   },
 ];
 
