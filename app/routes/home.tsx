@@ -199,7 +199,7 @@ export default function Home() {
           <p className="motion motion-d2 text-[#2e2e2e] text-[13px] leading-[1.7] mb-10">
             Ten members, one shared obsession.
           </p>
-          <div className="grid grid-cols-4 gap-[1px] bg-[#111]">
+          <div className="grid grid-cols-5 gap-[1px] bg-[#111]">
             {teaserMembers.map((m, i) => (
               <MemberCard key={m.name} member={m} delay={i + 1} />
             ))}
@@ -361,5 +361,11 @@ const teaserMembers = [
     name: "Kai Doddy",
     role: "Treasurer",
     quote: "Why waste time write lot code when few code do trick?",
+  },
+  {
+    name: "Rana El Machtoub",
+    role: "Club MAL",
+    quote:
+      "Nobody asked you, Ryan. But since you brought it up, my pull request had zero comments and merged in four minutes.",
   },
 ];
