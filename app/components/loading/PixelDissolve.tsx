@@ -23,6 +23,8 @@ export default function PixelDissolve({
   const animRef = useRef<number | null>(null);
   const [imgLoaded, setImgLoaded] = useState(false);
   const imgRef = useRef(new Image());
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
 
   useEffect(() => {
     const img = imgRef.current;
@@ -118,12 +120,12 @@ export default function PixelDissolve({
       if (alive > 0 && frame < 41) {
         animRef.current = requestAnimationFrame(animate);
       } else {
-        onComplete?.();
+        onCompleteRef.current?.();
       }
     };
     animRef.current = requestAnimationFrame(animate);
     return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
-  }, [dissolve, imgLoaded, blockSize, onComplete]);
+  }, [dissolve, imgLoaded, blockSize]);
 
   return (
     <canvas

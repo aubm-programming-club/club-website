@@ -116,7 +116,9 @@ export default function SystemInitScreen({
   useEffect(() => {
     if (stage !== STAGE_FILE_LOAD) return;
     let idx = 0;
+    let cancelled = false;
     const loadNext = () => {
+      if (cancelled) return;
       if (idx >= SYSTEM_FILES.length) {
         setTotalProgress(95);
         setStage(STAGE_COMPLETE);
@@ -126,6 +128,7 @@ export default function SystemInitScreen({
       const file = SYSTEM_FILES[idx];
       let prog = 0;
       const step = () => {
+        if (cancelled) return;
         prog += Math.random() * 30 + 10;
         if (prog >= 100) {
           prog = 100;
@@ -142,6 +145,7 @@ export default function SystemInitScreen({
       setTimeout(step, 30);
     };
     loadNext();
+    return () => { cancelled = true; };
   }, [stage]);
 
   useEffect(() => {
@@ -152,11 +156,15 @@ export default function SystemInitScreen({
 
   useEffect(() => {
     if (stage === STAGE_COMPLETE && isLoaded && totalProgress === 100) {
+      let t2: ReturnType<typeof setTimeout> | null = null;
       const t = setTimeout(() => {
         setShowFlash(true);
-        setTimeout(() => { setDone(true); onComplete?.(); }, 376);
+        t2 = setTimeout(() => { setDone(true); onComplete?.(); }, 376);
       }, 451);
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        if (t2) clearTimeout(t2);
+      };
     }
   }, [stage, isLoaded, totalProgress, onComplete]);
 
