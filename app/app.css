@@ -18,3 +18,116 @@ body {
 .loading-bar {
   animation: loadbar 2s ease-out forwards;
 }
+
+/* ── Scroll reveal system ── */
+.motion {
+  opacity: 0;
+  transform: translateY(70px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.motion-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.motion-out-down {
+  opacity: 0;
+  transform: translateY(70px);
+}
+.motion-out-up {
+  opacity: 0;
+  transform: translateY(-40px);
+}
+.motion-d1 { transition-delay: 0.06s; }
+.motion-d2 { transition-delay: 0.14s; }
+.motion-d3 { transition-delay: 0.22s; }
+.motion-d4 { transition-delay: 0.30s; }
+.motion-d5 { transition-delay: 0.38s; }
+
+/* ── Hero divider line ── */
+.hero-line {
+  height: 2px;
+  background: #DA291C;
+  width: 0;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+.hero-line-in {
+  width: 40px;
+}
+
+/* ── Loading screen (SystemInitScreen) ── */
+.crt-overlay {
+  pointer-events: none; position: fixed; inset: 0; z-index: 9999; will-change: opacity;
+  background:
+    linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%),
+    linear-gradient(90deg, rgba(204,33,49,0.03), rgba(75,23,87,0.02), rgba(235,159,0,0.03));
+  background-size: 100% 2px, 3px 100%;
+  animation: crt-flicker 0.225s steps(4) infinite;
+}
+@keyframes crt-flicker { 0%, 100% { opacity: 0.96; } 50% { opacity: 0.93; } }
+
+.scan-bar {
+  pointer-events: none; position: fixed; left: 0; right: 0; top: 0;
+  height: 2px; z-index: 9998; will-change: transform;
+  background: rgba(235,159,0,0.1);
+  box-shadow: 0 0 20px 8px rgba(132,1,50,0.05);
+  animation: scan-sweep 3s linear infinite;
+}
+@keyframes scan-sweep { 0% { transform: translateY(-5vh); } 100% { transform: translateY(105vh); } }
+
+.fisheye-overlay {
+  pointer-events: none; position: fixed; inset: 0; z-index: 9998;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(10,4,8,0.5) 80%, rgba(10,4,8,0.92) 100%);
+  border-radius: 12px;
+}
+
+.chromatic {
+  text-shadow: 2px 0 rgba(204,33,49,0.5), -2px 0 rgba(75,23,87,0.5);
+  animation: chromatic-shift 2.25s ease-in-out infinite;
+}
+@keyframes chromatic-shift {
+  0%, 100% { text-shadow: 2px 0 rgba(204,33,49,0.5), -2px 0 rgba(75,23,87,0.5); }
+  50% { text-shadow: 0 0 transparent, 0 0 transparent; }
+}
+
+.white-flash {
+  position: fixed; inset: 0; background: white; z-index: 10000;
+  animation: white-flash 0.3s ease-out forwards;
+}
+@keyframes white-flash { 0% { opacity: 0; } 20% { opacity: 1; } 60% { opacity: 0.6; } 100% { opacity: 0; } }
+
+.noise-overlay {
+  pointer-events: none; position: fixed; inset: 0; z-index: 9997;
+  opacity: 0.03; will-change: transform;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: noise-move 0.376s steps(3) infinite;
+}
+@keyframes noise-move {
+  0% { transform: translate(0,0); } 33% { transform: translate(-10px,-10px); }
+  66% { transform: translate(10px,5px); } 100% { transform: translate(0,0); }
+}
+
+.progress-bar {
+  height: 4px;
+  background: linear-gradient(90deg, #840132, #cc2131, #EB9F00);
+  box-shadow: 0 0 10px #840132, 0 0 20px rgba(132,1,50,0.4);
+  transition: width 0.225s steps(8);
+}
+
+.cursor-blink::after { content: '█'; color: #cc2131; animation: blink 0.376s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.logo-glow { animation: logo-pulse 2.25s ease-in-out infinite; }
+@keyframes logo-pulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(204,33,49,0.25)); }
+  50% { filter: drop-shadow(0 0 18px rgba(204,33,49,0.5)); }
+}
+
+.big-percent {
+  font-family: 'VT323', monospace; font-size: 120px; letter-spacing: 8px;
+  color: #840132; text-shadow: 0 0 30px rgba(132,1,50,0.3);
+  opacity: 0.12; position: absolute; bottom: 30px; right: 40px;
+  line-height: 1; user-select: none; pointer-events: none;
+}

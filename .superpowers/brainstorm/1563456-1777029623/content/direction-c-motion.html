@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction C — With Scroll Motion</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; font-family: 'Inter', sans-serif; color: #fff; }
+
+  /* ── SCROLL ANIMATION SYSTEM ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* stagger helpers */
+  .delay-1 { transition-delay: 0.08s; }
+  .delay-2 { transition-delay: 0.16s; }
+  .delay-3 { transition-delay: 0.24s; }
+  .delay-4 { transition-delay: 0.32s; }
+  .delay-5 { transition-delay: 0.40s; }
+
+  /* red line animate */
+  .hero-divider {
+    width: 0;
+    height: 2px;
+    background: #DA291C;
+    margin: 20px 0;
+    transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+  .hero-divider.visible { width: 32px; }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: #000;
+    border-bottom: 1px solid #111;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 58px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-mark {
+    width: 28px; height: 28px; background: #DA291C;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px;
+  }
+  .nav-mark span { color: #fff; font-size: 10px; font-weight: 800; }
+  .nav-name { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: #555; font-size: 11px; font-weight: 500;
+    letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a.active { color: #fff; border-bottom: 1px solid #DA291C; padding-bottom: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: #000;
+    padding: 88px 80px 72px;
+    border-bottom: 1px solid #111;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    color: #DA291C;
+    font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .hero-title {
+    color: #fff; font-size: 64px; font-weight: 500;
+    line-height: 1.05; letter-spacing: -2px;
+    max-width: 600px; margin-bottom: 0;
+  }
+  .hero-sub {
+    color: #444; font-size: 15px; line-height: 1.7;
+    max-width: 420px; margin-bottom: 36px;
+  }
+  .hero-ctas { display: flex; gap: 14px; align-items: center; }
+  .btn-primary {
+    background: #DA291C; color: #fff;
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 13px 26px; border-radius: 2px; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #b8221a; }
+  .btn-ghost {
+    color: #444; font-size: 11px; letter-spacing: 1.2px;
+    text-transform: uppercase; font-weight: 500; cursor: pointer;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-ghost:hover { color: #888; }
+  .arrow { color: #333; transition: transform 0.2s, color 0.2s; }
+  .btn-ghost:hover .arrow { transform: translateX(4px); color: #666; }
+
+  /* ── ABOUT ── */
+  .about {
+    background: #070707;
+    padding: 88px 80px;
+    border-bottom: 1px solid #111;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  .section-eyebrow { color: #DA291C; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .section-title { color: #fff; font-size: 28px; font-weight: 500; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .about-body { color: #444; font-size: 14px; line-height: 1.75; }
+  .about-points { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .about-point {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px solid #111;
+  }
+  .about-point:first-child { padding-top: 0; }
+  .about-point:last-child { border-bottom: none; }
+  .about-dot { width: 4px; height: 4px; background: #DA291C; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .about-point-text { color: #3a3a3a; font-size: 12.5px; line-height: 1.6; }
+  .about-point-text strong { color: #777; font-weight: 600; display: block; margin-bottom: 3px; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ── GAMES ── */
+  .games {
+    background: #000;
+    padding: 88px 80px;
+    border-bottom: 1px solid #111;
+  }
+  .games-header { margin-bottom: 40px; }
+  .section-sub { color: #333; font-size: 13px; line-height: 1.7; max-width: 480px; margin-top: 8px; }
+  .game-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #111; }
+  .game-card {
+    background: #070707;
+    padding: 40px 36px;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .game-card:hover { background: #0d0d0d; }
+  .game-tag {
+    color: #DA291C; font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .game-tag::before { content: ''; width: 16px; height: 1px; background: #DA291C; }
+  .game-title { color: #fff; font-size: 20px; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .game-desc { color: #3a3a3a; font-size: 12.5px; line-height: 1.7; margin-bottom: 24px; }
+  .game-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .game-pill {
+    background: #0d0d0d; border: 1px solid #1a1a1a; color: #444;
+    font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 2px;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    background: #070707;
+    padding: 88px 80px;
+    border-bottom: 1px solid #111;
+  }
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #111; margin-top: 40px; }
+  .feature { background: #070707; padding: 36px 28px; transition: background 0.25s; }
+  .feature:hover { background: #0a0a0a; }
+  .feature-icon { font-size: 18px; margin-bottom: 14px; }
+  .feature-title { color: #bbb; font-size: 13px; font-weight: 600; margin-bottom: 7px; letter-spacing: 0.2px; }
+  .feature-desc { color: #2e2e2e; font-size: 11.5px; line-height: 1.65; }
+
+  /* ── MEMBERS TEASER ── */
+  .members-teaser {
+    background: #000;
+    padding: 88px 80px;
+    border-bottom: 1px solid #111;
+  }
+  .members-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #111; margin-top: 40px; }
+  .member-card { background: #060606; overflow: hidden; }
+  .mc-top {
+    background: #000; padding: 7px 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #0d0d0d;
+  }
+  .mc-rec { display: flex; align-items: center; gap: 5px; }
+  .mc-dot-anim {
+    width: 6px; height: 6px; background: #DA291C; border-radius: 50%;
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .mc-rec-label { color: #DA291C; font-size: 7px; letter-spacing: 1.5px; font-weight: 700; }
+  .mc-time { color: #1a1a1a; font-size: 7px; font-family: monospace; }
+  .mc-avatar-area {
+    background: #000; padding: 24px 16px;
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 2px solid #DA291C;
+  }
+  .mc-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #0d0d0d; border: 1px solid #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    color: #DA291C; font-size: 15px; font-weight: 700;
+  }
+  .mc-body { padding: 14px 16px 16px; }
+  .mc-name { color: #fff; font-size: 12.5px; font-weight: 600; }
+  .mc-role { color: #DA291C; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+  .mc-quote { color: #1e1e1e; font-size: 10px; font-style: italic; margin-top: 10px; line-height: 1.5; border-left: 2px solid #1a1a1a; padding-left: 8px; }
+
+  .view-all-row { text-align: center; margin-top: 32px; }
+  .view-all {
+    color: #333; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    border-bottom: 1px solid #222; padding-bottom: 2px;
+    cursor: pointer; transition: color 0.2s, border-color 0.2s;
+    display: inline-block;
+  }
+  .view-all:hover { color: #888; border-color: #555; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #000; border-top: 1px solid #111;
+    padding: 28px 80px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand { color: #DA291C; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+  .footer-copy { color: #1e1e1e; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+  /* ── MOTION NOTE banner ── */
+  .motion-note {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: #111; border: 1px solid #222; border-left: 2px solid #DA291C;
+    padding: 10px 16px; border-radius: 2px;
+    font-family: 'Inter', sans-serif; font-size: 10px; color: #555;
+    letter-spacing: 0.5px; max-width: 220px; line-height: 1.5;
+    z-index: 999;
+  }
+  .motion-note span { color: #888; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-mark"><span>&lt;/&gt;</span></div>
+    <span class="nav-name">AUBM Programming Club</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <a href="#">Members</a>
+    <a href="#">Projects</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow reveal visible">AUBM · Open Day 2026</div>
+  <h1 class="hero-title reveal visible delay-1">Where students<br>build real software.</h1>
+  <div class="hero-divider visible"></div>
+  <p class="hero-sub reveal visible delay-2">A tight-knit programming club at American University of Beirut Mediterranean. We write code, ship projects, and invite you to try one right now.</p>
+  <div class="hero-ctas reveal visible delay-3">
+    <span class="btn-primary">Meet the Team</span>
+    <span class="btn-ghost">View Projects <span class="arrow">→</span></span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div>
+    <div class="section-eyebrow reveal">About the Club</div>
+    <h2 class="section-title reveal delay-1">A place for builders<br>at AUBM.</h2>
+    <p class="about-body reveal delay-2">UniCode Club is a student-run organisation dedicated to programming, collaboration, and real-world software. We welcome everyone — from first-year coders to seasoned builders.</p>
+  </div>
+  <div class="about-points">
+    <div class="about-point reveal delay-1">
+      <div class="about-dot"></div>
+      <div class="about-point-text"><strong>Weekly Coding Sessions</strong>Practice algorithms, build projects, sharpen skills every week.</div>
+    </div>
+    <div class="about-point reveal delay-2">
+      <div class="about-dot"></div>
+      <div class="about-point-text"><strong>Hackathons &amp; Competitions</strong>University-wide and national events — compete, create, win.</div>
+    </div>
+    <div class="about-point reveal delay-3">
+      <div class="about-dot"></div>
+      <div class="about-point-text"><strong>Open to All Levels</strong>Whether you've written one line or ten thousand, you belong here.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOTH GAMES -->
+<section class="games">
+  <div class="games-header">
+    <div class="section-eyebrow reveal">Open Day · Try It Now</div>
+    <h2 class="section-title reveal delay-1">Our Booth Games</h2>
+    <p class="section-sub reveal delay-2">We built two interactive coding games for today. Sit down, write a few lines of Python, and watch your character jump across the screen. No experience needed.</p>
+  </div>
+  <div class="game-cards">
+    <div class="game-card reveal delay-1">
+      <div class="game-tag">Ages 8–12</div>
+      <div class="game-title">Junior Edition</div>
+      <div class="game-desc">Fill in a list of jump positions, press Enter, and watch the character leap over holes. One list, instant result. Pure beginner-friendly fun.</div>
+      <div class="game-pills">
+        <span class="game-pill">Python</span>
+        <span class="game-pill">Pygame</span>
+        <span class="game-pill">Kid Game</span>
+      </div>
+    </div>
+    <div class="game-card reveal delay-2">
+      <div class="game-tag">Ages 13–17</div>
+      <div class="game-title">Senior Edition</div>
+      <div class="game-desc">Use a for loop with range() to schedule all three jumps. Two lines of code. The correct answer sends the character flying across the finish.</div>
+      <div class="game-pills">
+        <span class="game-pill">Python</span>
+        <span class="game-pill">Pygame</span>
+        <span class="game-pill">Teen Game</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-eyebrow reveal">What We Do</div>
+  <h2 class="section-title reveal delay-1">Club Activities</h2>
+  <div class="features-grid">
+    <div class="feature reveal delay-1">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Weekly Coding Sessions</div>
+      <div class="feature-desc">Algorithms, competitive programming, and project sprints every week.</div>
+    </div>
+    <div class="feature reveal delay-2">
+      <div class="feature-icon">🏆</div>
+      <div class="feature-title">Hackathons</div>
+      <div class="feature-desc">University-wide and national competitions — build fast, build well.</div>
+    </div>
+    <div class="feature reveal delay-3">
+      <div class="feature-icon">🤝</div>
+      <div class="feature-title">Open Collaboration</div>
+      <div class="feature-desc">Real projects with real teammates. Build a portfolio that matters.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERS TEASER -->
+<section class="members-teaser">
+  <div class="section-eyebrow reveal">The Team</div>
+  <h2 class="section-title reveal delay-1">Meet the people behind the club.</h2>
+  <p class="section-sub reveal delay-2" style="margin-top:8px;">Ten members, one shared obsession. Documentary-style portraits included.</p>
+  <div class="members-grid">
+    <div class="member-card reveal delay-1">
+      <div class="mc-top">
+        <div class="mc-rec"><div class="mc-dot-anim"></div><span class="mc-rec-label">REC</span></div>
+        <span class="mc-time">00:00:00:00</span>
+      </div>
+      <div class="mc-avatar-area"><div class="mc-avatar">ZO</div></div>
+      <div class="mc-body">
+        <div class="mc-name">Zeina Obeid</div>
+        <div class="mc-role">President</div>
+        <div class="mc-quote">"I want people to be afraid of how much they love my code."</div>
+      </div>
+    </div>
+    <div class="member-card reveal delay-2">
+      <div class="mc-top">
+        <div class="mc-rec"><div class="mc-dot-anim"></div><span class="mc-rec-label">REC</span></div>
+        <span class="mc-time">00:00:00:00</span>
+      </div>
+      <div class="mc-avatar-area"><div class="mc-avatar">AH</div></div>
+      <div class="mc-body">
+        <div class="mc-name">Alwalid Hemaid</div>
+        <div class="mc-role">Vice President</div>
+        <div class="mc-quote">"Identity theft is not a joke, Emmanuel!"</div>
+      </div>
+    </div>
+    <div class="member-card reveal delay-3">
+      <div class="mc-top">
+        <div class="mc-rec"><div class="mc-dot-anim"></div><span class="mc-rec-label">REC</span></div>
+        <span class="mc-time">00:00:00:00</span>
+      </div>
+      <div class="mc-avatar-area"><div class="mc-avatar">EA</div></div>
+      <div class="mc-body">
+        <div class="mc-name">Emmanuel Abo Samra</div>
+        <div class="mc-role">Lead Developer</div>
+        <div class="mc-quote">"He's been using Notepad for two hours and hasn't noticed."</div>
+      </div>
+    </div>
+  </div>
+  <div class="view-all-row reveal delay-4">
+    <span class="view-all">View All Members →</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">AUBM Programming Club</span>
+  <span class="footer-copy">© 2026 UniCode Club · All rights reserved</span>
+</footer>
+
+<!-- motion note -->
+<div class="motion-note">
+  <span>Scroll animations active</span><br>
+  Each section fades + slides up on enter. Staggered delays on grid children.
+</div>
+
+<script>
+  // Intersection Observer — triggers .reveal elements as they enter viewport
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // also trigger the red divider line if present
+        const divider = document.querySelector('.hero-divider');
+        if (divider) divider.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
+
+  // Hero divider on load
+  setTimeout(() => {
+    const d = document.querySelector('.hero-divider');
+    if (d) d.classList.add('visible');
+  }, 400);
+</script>
+
+</body>
+</html>
